@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ressources/tank-02.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://entities/Projectiles/Missile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/Shooter.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14.5, 14.5 )
+
+[node name="Grostank" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 2 )
+speed = 10.0
+hitpoints = 100.0
+dijkstra = "distance_to_base"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+region_rect = Rect2( -45, -25, 135.229, 78.2806 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 14.5, 14.5 )
+shape = SubResource( 1 )
+
+[node name="Shooter" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 4 )
+attack_speed = 0.75
+projectile = ExtResource( 3 )

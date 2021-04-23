@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://menu.gd" type="Script" id=1]
 [ext_resource path="res://ressources/menu/tower-defense-title.png" type="Texture" id=2]
@@ -6,12 +6,15 @@
 [ext_resource path="res://ressources/menu/quit.png" type="Texture" id=4]
 [ext_resource path="res://ressources/menu/start.png" type="Texture" id=5]
 [ext_resource path="res://ressources/menu/quit-hover.png" type="Texture" id=6]
+[ext_resource path="res://ressources/menu_background.png" type="Texture" id=7]
 
 [node name="Control" type="Control"]
 anchor_right = 0.667
 anchor_bottom = 0.668
-margin_right = -213.76
-margin_bottom = -0.959991
+margin_left = 317.48
+margin_top = 84.1322
+margin_right = 103.72
+margin_bottom = 83.1721
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true,
@@ -19,43 +22,43 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 1.0
-margin_top = 2.0
-margin_right = 634.0
-margin_bottom = 460.0
+margin_left = -330.937
+margin_top = -91.5875
+margin_right = 966.063
+margin_bottom = 644.413
+texture = ExtResource( 7 )
+expand = true
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 334.948, 164.824 )
+position = Vector2( 322.249, 98.1532 )
 scale = Vector2( 1, 1.025 )
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="Start" type="TextureButton" parent="."]
-margin_left = 262.653
-margin_top = 214.893
-margin_right = 358.653
-margin_bottom = 254.893
+margin_left = 259.478
+margin_top = 160.921
+margin_right = 355.478
+margin_bottom = 200.921
 texture_normal = ExtResource( 5 )
 texture_hover = ExtResource( 3 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Quit" type="TextureButton" parent="."]
-margin_left = 235.293
-margin_top = 259.499
-margin_right = 395.293
-margin_bottom = 299.499
+margin_left = 227.356
+margin_top = 213.464
+margin_right = 387.356
+margin_bottom = 253.464
 texture_normal = ExtResource( 4 )
 texture_hover = ExtResource( 6 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://sprites/M484VerticalShmupSet1-29x29.png" type="Texture" id=1]
+[ext_resource path="res://ressources/pixil-frame-0 (2).png" type="Texture" id=1]
 [ext_resource path="res://scripts/Projectile.gd" type="Script" id=2]
+[ext_resource path="res://ressources/PNG/Bullet_MG.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2.2253, 4.49861 )
+extents = Vector2( 1.9375, 2.375 )
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource( 2 )
@@ -12,9 +13,17 @@ speed = 150.0
 duration = 2.0
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0.000604868, 0.0555065 )
+scale = Vector2( 0.167892, 0.160315 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 808, 236, 4, 9 )
+region_rect = Rect2( 17, 17, 35, 35 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Bullet_MG" type="Sprite" parent="."]
+position = Vector2( 0.295719, 0.241487 )
+scale = Vector2( 0.744937, 0.161423 )
+texture = ExtResource( 3 )

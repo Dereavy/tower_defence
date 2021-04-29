@@ -1,12 +1,33 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ressources/tank-02.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://entities/Projectiles/Missile.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Shooter.gd" type="Script" id=4]
+[ext_resource path="res://sprites/M484VerticalShmupSet1-29x29.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14.5, 14.5 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 124, 0, 31, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 155, 0, 31, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 186, 0, 31, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ), SubResource( 3 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ), SubResource( 3 ), SubResource( 2 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
 
 [node name="Grostank" type="Area2D"]
 collision_layer = 4
@@ -15,19 +36,82 @@ script = ExtResource( 2 )
 speed = 10.0
 hitpoints = 100.0
 dijkstra = "distance_to_base"
+reward = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
 region_rect = Rect2( -45, -25, 135.229, 78.2806 )
 
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( -0.716766, -0.644073 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 726, 132, 29, 29 )
+
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( 17.7771, -4.77906 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 850, 162, 8, 9 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 14.5, 14.5 )
 shape = SubResource( 1 )
 
+[node name="Sprite4" type="Sprite" parent="."]
+position = Vector2( 2.74806, -0.222556 )
+scale = Vector2( 0.886608, 0.869899 )
+z_index = 1
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 221, 98, 25, 23 )
+
+[node name="Sprite5" type="Sprite" parent="."]
+position = Vector2( 1.01636, -4.64045 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 850, 162, 8, 9 )
+
+[node name="Sprite6" type="Sprite" parent="."]
+position = Vector2( -3.8953, -0.0782318 )
+scale = Vector2( 0.718768, 1 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 652, 217, 14, 29 )
+
+[node name="Sprite7" type="Sprite" parent="."]
+position = Vector2( 22.1808, 1.24581 )
+scale = Vector2( 0.69627, 0.940262 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 652, 217, 14, 29 )
+
+[node name="Sprite8" type="Sprite" parent="."]
+position = Vector2( 3.43946, 16.0499 )
+scale = Vector2( 0.730017, 0.622024 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 615, 280, 28, 10 )
+
 [node name="Shooter" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 10
 script = ExtResource( 4 )
-attack_speed = 0.75
+attack_speed = 0.5
 projectile = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 12.9717, 29.2665 )
+scale = Vector2( 1.21335, 0.525431 )
+z_index = -1
+frames = SubResource( 5 )
+frame = 5
+playing = true

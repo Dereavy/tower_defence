@@ -31,3 +31,5 @@ func _process(delta):
 		
 func fire(direction):
 	velocity = direction * speed
+	#self.rotation_degrees = direction
+	#$Missile/Tween.interpolate_property($Missile,'rotation_degrees',$Missile.rotation_degrees,direction,1,Tween.TRANS_LINEAR)

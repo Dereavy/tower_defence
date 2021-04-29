@@ -5,6 +5,7 @@ export (int) var height = 64
 export (int) var starting_money = 200
 export var movement_costs = {}
 export (float) var tower_cost = 10
+export (float) var tree_cost = 50
 var entities = []
 var tile_map
 var dijkstra = {}
@@ -23,6 +24,17 @@ func get_cost(pos):
 	if group == 'water' || group == 'rock' || group == 'tree': return null
 	# si on a renseigné un coût pour ce type de terrain, on l'applique ici
 	elif movement_costs.has(group): return movement_costs[group]
+	# sinon le coût par défaut c'est 1
+	return 1
+
+	# retourner le coût de déplacement d'une case
+func get_cost_tree(pos):
+	var group = tile_map.get_group(pos)
+	# les cases eau et arbre ne peuvent pas être traversées
+	if group == 'water' || group == 'rock' || group == 'tree': return null
+	# si on a renseigné un coût pour ce type de terrain, on l'applique ici
+	if group == "grass": return 1
+	elif group == "road": return 10
 	# sinon le coût par défaut c'est 1
 	return 1
 
@@ -51,11 +63,19 @@ func _ready():
 		graphs['range_cost'][x].resize(height)
 		for y in range(height):
 			graphs['range_cost'][x][y] = get_cost(Vector2(x, y))
+			
+	graphs['tree_cost'] = []
+	for x in range(width):
+		graphs['tree_cost'].append([])
+		graphs['tree_cost'][x].resize(height)
+		for y in range(height):
+			graphs['tree_cost'][x][y] = get_cost_tree(Vector2(x, y))
 		
 	# il faut ajouter la base aux entités gérées par ce script	
 	var base = get_node("Base")
 	add_entity(base, base.position)
 
+	
 	for node in get_tree().get_nodes_in_group("treeGroup"):
 		add_entity(node, node.position)
 	
@@ -73,6 +93,8 @@ func add_shooter_cost(pos, attack_range):
 				if map_x < 0 || map_x >= width || map_y < 0 || map_y >= height: continue
 				if graphs['range_cost'][map_x][map_y] == null: continue
 				graphs['range_cost'][map_x][map_y] = max(graphs['range_cost'][map_x][map_y], get_cost(Vector2(map_x, map_y)) + tower_cost)
+				if graphs['tree_cost'][map_x][map_y] == null: continue
+				graphs['tree_cost'][map_x][map_y] = max(graphs['tree_cost'][map_x][map_y], get_cost(Vector2(map_x, map_y)) + tree_cost)
 				
 func reset_shooter_cost(pos, attack_range):
 	var tile_range = ceil(attack_range / tile_map.cell_size.x)
@@ -85,7 +107,8 @@ func reset_shooter_cost(pos, attack_range):
 				if map_x < 0 || map_x >= width || map_y < 0 || map_y >= height: continue
 				if graphs['range_cost'][map_x][map_y] == null: continue
 				graphs['range_cost'][map_x][map_y] = get_cost(Vector2(map_x, map_y))
-	
+				if graphs['tree_cost'][map_x][map_y] == null: continue
+				graphs['tree_cost'][map_x][map_y] = get_cost(Vector2(map_x, map_y))
 # ajouter une entité aux systèmes "world"	
 func add_entity(entity, pos):
 	if get_node("/root/Main").state != "playing": return
@@ -113,7 +136,8 @@ func add_entity(entity, pos):
 		if tilemap_entity.tag:
 			if !entity_lookups.has(tilemap_entity.tag): entity_lookups[tilemap_entity.tag] = []
 			if !dijkstra.has('distance_to_%s' % tilemap_entity.tag): dijkstra['distance_to_%s' % tilemap_entity.tag] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['cost'])
-			if !dijkstra.has('avoid_range_go_to_%s' % tilemap_entity.tag): dijkstra['avoid_range_go_to_%s' % tilemap_entity.tag] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['range_cost'])	
+			if !dijkstra.has('avoid_range_go_to_%s' % tilemap_entity.tag): dijkstra['avoid_range_go_to_%s' % tilemap_entity.tag] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['range_cost'])
+			if !dijkstra.has('avoid_road'): dijkstra['avoid_road'] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['tree_cost'])		
 	else: entity_positions.append(tile_pos)
 	
 	var shooter = entity.get_node_or_null("Shooter")
@@ -187,14 +211,6 @@ func remove_entity(entity):
 				for y in range(tower.height):
 					add_shooter_cost(Vector2(tower_pos.x + x, tower_pos.y + y), tower_shooter.attack_range)
 		
-#	if shooter && entity_lookups['tree']:
-#		for tower_pos in entity_lookups['tree']:
-#			var tower = entities[tower_pos.x][tower_pos.y]
-#			var tower_shooter = tower.get_node_or_null("Shooter")
-#			if !tower_shooter: continue
-#			for x in range(tower.width):
-#				for y in range(tower.height):
-#					add_shooter_cost(Vector2(tower_pos.x + x, tower_pos.y + y), tower_shooter.attack_range)
 	# on doit recalculer tous les graphes Dijkstra car de nouveaux chemins pourraient être ouverts	
 	for map in dijkstra:
 		dijkstra[map].calculate()

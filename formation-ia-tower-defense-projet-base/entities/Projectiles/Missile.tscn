@@ -1,21 +1,59 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://sprites/M484VerticalShmupSet1-29x29.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Projectile.gd" type="Script" id=2]
+[ext_resource path="res://ressources/beams.png" type="Texture" id=3]
+[ext_resource path="res://ressources/PNG/Missile.png" type="Texture" id=4]
+[ext_resource path="res://entities/Projectiles/Missile.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4.42316, 4.30295 )
 
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 36, 111, 18, 111 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 111, 18, 111 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
 [node name="Missile" type="Area2D"]
 script = ExtResource( 2 )
-damage = 8.0
-speed = 55.0
+damage = 10.0
+speed = 70.0
 duration = 10.0
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 833, 162, 9, 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -9.11027, 0.812185 )
+scale = Vector2( 0.578667, 0.118029 )
+z_index = -1
+frames = SubResource( 4 )
+playing = true
+
+[node name="Missile" type="Sprite" parent="."]
+position = Vector2( -0.0738279, 0.135204 )
+rotation = 1.56916
+scale = Vector2( 0.184457, 0.101753 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Tween" type="Tween" parent="Missile"]

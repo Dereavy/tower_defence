@@ -3,11 +3,12 @@
 [ext_resource path="res://sprites/shmup29x29.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMapEntity.gd" type="Script" id=2]
 
-[node name="Tree" type="Area2D" groups=[
+[node name="tree" type="Area2D" groups=[
 "treeGroup",
 ]]
 collision_mask = 0
 script = ExtResource( 2 )
+tag = "tree"
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

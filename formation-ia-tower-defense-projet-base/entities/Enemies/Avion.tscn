@@ -6,25 +6,27 @@
 [ext_resource path="res://scripts/Shooter.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.5, 14.5 )
+extents = Vector2( 8.89966, 9.69021 )
 
 [node name="Moto" type="Area2D"]
+position = Vector2( -8.21084, -8.873 )
 collision_layer = 4
 collision_mask = 0
 script = ExtResource( 2 )
 speed = 50.0
 hitpoints = 10.0
 dijkstra = "distance_to_base"
-reward = 35
+reward = 50
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 833.528, 249, 34.4724, 34.3158 )
+region_rect = Rect2( 802, 255, 16, 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 14.5, 14.5 )
+visible = false
+position = Vector2( 8.26371, 9.60006 )
 shape = SubResource( 1 )
 
 [node name="Shooter" type="Area2D" parent="."]
@@ -33,3 +35,20 @@ collision_mask = 2147483658
 script = ExtResource( 4 )
 attack_speed = 0.75
 projectile = ExtResource( 3 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.2 )
+position = Vector2( 0.248745, 10.9115 )
+z_index = -1
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 802, 255, 16, 18 )
+
+[node name="helice" type="Sprite" parent="."]
+position = Vector2( 8.01808, 10.6908 )
+scale = Vector2( 0.685565, 0.579298 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 163, 260, 17, 17 )

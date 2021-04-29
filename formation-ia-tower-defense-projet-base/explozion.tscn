@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://explozion.gd" type="Script" id=1]
+[ext_resource path="res://entities/Enemies/anim_player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/M484VerticalShmupSet2-30x30.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 264, 363, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 297, 363, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 330, 363, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 363, 363, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 396, 363, 33, 33 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 429, 363, 33, 33 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), null ],
+"loop": true,
+"name": "explose",
+"speed": 6.0
+} ]
+
+[node name="explose" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+animation = "explose"
+frame = 2
+playing = true
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 0, -1 )
+scale = Vector2( 1e-05, 1e-05 )
+z_index = -1
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 267, 366, 30, 30 )
+
+[node name="Sprite4" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -1 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 333, 366, 30, 30 )
+
+[node name="Sprite6" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -1 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 399, 366, 30, 30 )
+
+[node name="anim_player" parent="." instance=ExtResource( 2 )]
+root_node = NodePath(".")
+
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( 0, -1 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 300, 366, 30, 30 )
+
+[node name="Sprite5" type="Sprite" parent="."]
+position = Vector2( 0, -1 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 366, 366, 30, 30 )

@@ -14,6 +14,9 @@ func _process(delta):
 		return
 	z_index = position.y
 	if get_node("/root/Main").state != "playing": return
+#	var instanc = sceneExplosion.instance()
+#	if is_instance_valid(instanc) :
+#		self.add_child(instanc)
 	if world.dijkstra.has(dijkstra):
 		var distance = 0
 		if destination:
@@ -24,14 +27,28 @@ func _process(delta):
 		if (distance < move_amount):
 			destination = tile_map.map_to_world(world.dijkstra[dijkstra].get_next(tile_pos))
 		position = position.move_toward(destination, move_amount)
+		var sprite = self.get_node_or_null("helice")
+		if sprite:
+			sprite.rotate(180)
+#		if position.x > destination.x:
+#			print(position.x)
 		
 func take_damage(amount):
 	hitpoints -= amount
 	if (hitpoints <= 0):
-		queue_free()
+		
 		var main = get_node("/root/Main")
 		# on donne la récompense au joueur pour avoir tué un ennemi
 		main.money += reward
-		
+
+# Add explosion
+		var scene = load("res://explozion.tscn")
+		var explosion = scene.instance()
+		explosion.set_position(get_global_position())
+		get_node("/root").add_child(explosion)
+
+		queue_free()
+	
 func _exit_tree():
 	world.remove_enemy(self)
+	

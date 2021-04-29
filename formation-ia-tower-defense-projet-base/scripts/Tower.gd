@@ -7,3 +7,4 @@ var menu_index
 func _ready():
 	collision_layer = 0b10
 	collision_mask = 0
+	#var test = get_node("MG2")

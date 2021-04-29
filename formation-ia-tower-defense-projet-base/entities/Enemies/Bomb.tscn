@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://entities/Projectiles/explosion.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/M484VerticalShmupSet2-30x30.png" type="Texture" id=3]
+[ext_resource path="res://scripts/Shooter.gd" type="Script" id=4]
+[ext_resource path="res://ressources/beams.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15.0318, 14.0302 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 40, 89 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 40, 55 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 40, 63 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 40, 74 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 40, 49 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 5 ), SubResource( 6 ), SubResource( 5 ), SubResource( 4 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="Animation" id=8]
+resource_name = "on_death"
+
+[node name="Bomb" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 1 )
+speed = 100.0
+hitpoints = 6.0
+dijkstra = "distance_to_tower"
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 26.9695, 26.2204 )
+rotation = -3.14001
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 399, 1101, 27, 26 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.278431 )
+position = Vector2( 26.3389, 48.7144 )
+rotation = -3.14001
+z_index = -1
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 399, 1101, 27, 26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 14.3275, 13.3505 )
+shape = SubResource( 1 )
+
+[node name="Shooter" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 10
+script = ExtResource( 4 )
+attack_range = 1.0
+attack_speed = 2.0
+projectile = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+show_behind_parent = true
+position = Vector2( 7.37591, 27.0641 )
+rotation = -6.28319
+scale = Vector2( 0.471027, 0.429034 )
+frames = SubResource( 7 )
+frame = 6
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
+show_behind_parent = true
+position = Vector2( 19.3587, 26.8539 )
+rotation = -6.28319
+scale = Vector2( 0.471027, 0.429034 )
+frames = SubResource( 7 )
+frame = 6
+playing = true
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+anims/on_death = SubResource( 8 )

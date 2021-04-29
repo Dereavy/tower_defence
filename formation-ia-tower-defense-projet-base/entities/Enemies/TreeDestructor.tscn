@@ -1,34 +1,309 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/M484VerticalShmupSet1-29x29.png" type="Texture" id=2]
-[ext_resource path="res://entities/Projectiles/Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/Projectiles/Fire.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Shooter.gd" type="Script" id=4]
+[ext_resource path="res://ressources/tankBase.png" type="Texture" id=5]
+[ext_resource path="res://ressources/Flamethrower-Icon.png" type="Texture" id=6]
+[ext_resource path="res://ressources/tower-base-b.png" type="Texture" id=7]
+[ext_resource path="res://ressources/chainsaw_by_ashmo.png" type="Texture" id=8]
+[ext_resource path="res://ressources/small fire sprite orange.png" type="Texture" id=9]
+[ext_resource path="res://ressources/land-mine.png" type="Texture" id=10]
+[ext_resource path="res://ressources/pixil-frame-0 (2).png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.9635, 7.38137 )
+extents = Vector2( 17.1514, 26.6007 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 96, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 4 ), SubResource( 2 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 155, 0, 31, 30 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 186, 0, 31, 30 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Enemy" type="Area2D"]
+position = Vector2( -0.087265, 0.55265 )
 collision_layer = 4
 collision_mask = 0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 speed = 35.0
 dijkstra = "distance_to_tree"
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+position = Vector2( -10.0929, 18.0886 )
+scale = Vector2( 0.320278, 0.398448 )
+z_index = 1
+texture = ExtResource( 7 )
 centered = false
-region_enabled = true
 region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite6" type="Sprite" parent="."]
+position = Vector2( -41.7763, 28.5473 )
+rotation = -0.369911
+scale = Vector2( 0.176583, 0.302382 )
+texture = ExtResource( 8 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite11" type="Sprite" parent="."]
+position = Vector2( -27.1038, -0.620811 )
+rotation = 0.44159
+scale = Vector2( 0.176583, 0.302382 )
+texture = ExtResource( 8 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite7" type="Sprite" parent="."]
+position = Vector2( -30.2858, 57.8923 )
+rotation = -1.10383
+scale = Vector2( 0.176583, 0.302382 )
+texture = ExtResource( 8 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite8" type="Sprite" parent="."]
+position = Vector2( 1.18053, 71.8576 )
+rotation = -1.99439
+scale = Vector2( 0.176583, 0.302382 )
+texture = ExtResource( 8 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite9" type="Sprite" parent="."]
+position = Vector2( 26.106, 62.1349 )
+rotation = -2.64325
+scale = Vector2( 0.176583, 0.302382 )
+texture = ExtResource( 8 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite10" type="Sprite" parent="."]
+position = Vector2( 40.9552, 25.5421 )
+rotation = -3.6885
+scale = Vector2( 0.176583, 0.302382 )
+texture = ExtResource( 8 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( -5.10737, -2.0872 )
+rotation = 0.841018
+scale = Vector2( 0.1556, 0.154915 )
+z_index = -1
+texture = ExtResource( 6 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite4" type="Sprite" parent="."]
+position = Vector2( 6.05534, -1.6028 )
+rotation = 0.813006
+scale = Vector2( 0.147308, 0.144236 )
+z_index = -1
+texture = ExtResource( 6 )
+centered = false
+region_rect = Rect2( 684.523, 85.1365, 28.9478, 30.31 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 14.3275, 6.98268 )
+position = Vector2( -0.265778, 26.9803 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Shooter" type="Area2D" parent="."]
+position = Vector2( -7.71996, 5.27799 )
 collision_layer = 0
-collision_mask = 9
+collision_mask = 11
 script = ExtResource( 4 )
 attack_range = 150.0
-attack_speed = 3.0
+attack_speed = 25.0
 projectile = ExtResource( 3 )
+
+[node name="Shooter2" type="Area2D" parent="."]
+position = Vector2( 8.18569, 8.99426 )
+collision_layer = 0
+collision_mask = 11
+script = ExtResource( 4 )
+attack_range = 150.0
+attack_speed = 25.0
+projectile = ExtResource( 3 )
+
+[node name="land-mine" type="Sprite" parent="."]
+position = Vector2( 0.193535, 27.8403 )
+scale = Vector2( 0.427041, 0.481899 )
+z_index = 1
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="tankBase" type="Sprite" parent="."]
+position = Vector2( 0.379637, 34.1183 )
+scale = Vector2( 0.974084, 0.926168 )
+z_index = -1
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
+position = Vector2( 6.46404, -1.74431 )
+rotation = -0.0139771
+scale = Vector2( 0.678369, 0.723881 )
+z_index = -2
+frames = SubResource( 6 )
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimatedSprite4" type="AnimatedSprite" parent="."]
+position = Vector2( -5.31417, -1.72441 )
+rotation = -0.0139771
+scale = Vector2( 0.678369, 0.723881 )
+z_index = -2
+frames = SubResource( 6 )
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimatedSprite5" type="AnimatedSprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.560784 )
+position = Vector2( 8.89192, 23.6266 )
+scale = Vector2( 0.617794, 0.817566 )
+z_index = -2
+frames = SubResource( 9 )
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimatedSprite6" type="AnimatedSprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.560784 )
+position = Vector2( 26.2222, 22.9224 )
+scale = Vector2( 0.687654, 0.886935 )
+z_index = -2
+frames = SubResource( 9 )
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( -24.2045, 18.6824 )
+scale = Vector2( 0.398886, 0.426362 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite5" type="Sprite" parent="."]
+position = Vector2( -25.0454, 38.4435 )
+scale = Vector2( 0.398886, 0.426362 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite12" type="Sprite" parent="."]
+position = Vector2( -10.8627, 53.4605 )
+scale = Vector2( 0.398886, 0.426362 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite13" type="Sprite" parent="."]
+position = Vector2( 10.3279, 53.4605 )
+scale = Vector2( 0.398886, 0.426362 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite14" type="Sprite" parent="."]
+position = Vector2( 22.5083, 40.1121 )
+scale = Vector2( 0.398886, 0.426362 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite15" type="Sprite" parent="."]
+position = Vector2( 21.479, 16.5668 )
+scale = Vector2( 0.398886, 0.426362 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}

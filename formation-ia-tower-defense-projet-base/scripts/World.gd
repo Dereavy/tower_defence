@@ -25,6 +25,13 @@ func get_cost(pos):
 	elif movement_costs.has(group): return movement_costs[group]
 	# sinon le coût par défaut c'est 1
 	return 1
+# retourner le coût de déplacement d'une case
+func get_cost_special(pos):
+	var group = tile_map.get_group(pos)
+	# si on a renseigné un coût pour ce type de terrain, on l'applique ici
+	if movement_costs.has(group): return movement_costs[group]
+	# sinon le coût par défaut c'est 1
+	return 1
 
 # _ready est une fonction Godot qui sera invoquée à la création de l'objet
 func _ready():
@@ -32,10 +39,10 @@ func _ready():
 	for x in range(width):
 		entities.append([])
 		entities[x].resize(height)
-		
+
 	# stocker une référence à la "tile map"
 	tile_map = get_node("TileMap")
-	
+
 	# intialiser la grille des coûts de déplacement
 	graphs['cost'] = []
 	for x in range(width):
@@ -43,7 +50,14 @@ func _ready():
 		graphs['cost'][x].resize(height)
 		for y in range(height):
 			graphs['cost'][x][y] = get_cost(Vector2(x, y))
-		
+
+	graphs['cost_helicopter'] = []
+	for x in range(width):
+		graphs['cost_helicopter'].append([])
+		graphs['cost_helicopter'][x].resize(height)
+		for y in range(height):
+			graphs['cost_helicopter'][x][y] = get_cost_special(Vector2(x, y))
+
 	# initialiser la grille des coûts modifiée par les tours	
 	graphs['range_cost'] = []
 	for x in range(width):
@@ -107,8 +121,10 @@ func add_entity(entity, pos):
 				entity_positions.append(Vector2(tile_pos.x + x, tile_pos.y + y))
 		# pour chaque "tag" on a une liste d'entités et un graphe Dijkstra
 		# on les créé ici s'ils n'existent pas déjà
+
 		if tilemap_entity.tag:
 			if !entity_lookups.has(tilemap_entity.tag): entity_lookups[tilemap_entity.tag] = []
+			if !dijkstra.has('distance_to_helicopters'): dijkstra['distance_to_helicopter'] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['cost_helicopter'])
 			if !dijkstra.has('distance_to_%s' % tilemap_entity.tag): dijkstra['distance_to_%s' % tilemap_entity.tag] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['cost'])
 			if !dijkstra.has('avoid_range_go_to_%s' % tilemap_entity.tag): dijkstra['avoid_range_go_to_%s' % tilemap_entity.tag] = DijkstraMap.new(entity_lookups[tilemap_entity.tag], graphs['range_cost'])	
 	else: entity_positions.append(tile_pos)
